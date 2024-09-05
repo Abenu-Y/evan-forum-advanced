@@ -4,6 +4,7 @@ import ThreadCard from '@/components/cards/ThreadCard'
 import {  SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
 import { redirect } from "next/navigation";
+import Pagination from '@/components/shared/Pagination'
 
 async function Home({
   searchParams,
@@ -48,6 +49,13 @@ async function Home({
               </>
             )}
        </section>
+
+
+       <Pagination
+          path='/'
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+      />
     
     </>
   )
