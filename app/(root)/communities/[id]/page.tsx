@@ -44,7 +44,7 @@ async function Page({ params }: { params: { id: string } }) {
 
                 {tab.label === "Threads" && (
                   <p className='ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2'>
-                    {communityDetails.threads.length}
+                    {communityDetails.threads?.length}
                   </p>
                 )}
               </TabsTrigger>

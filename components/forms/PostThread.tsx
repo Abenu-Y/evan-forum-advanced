@@ -17,9 +17,6 @@ interface Props {
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
-
-
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
 
@@ -33,6 +30,7 @@ function PostThread({userId}:Props){
     const { organization } = useOrganization();
       
     const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
+        console.log("first",organization)
         await createThread({
           text: values.thread,
           author: userId,

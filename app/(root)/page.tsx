@@ -1,21 +1,31 @@
-import ThreadCard from '@/components/cards/ThreadCard'
 import { fetchPosts } from '@/lib/actions/thread.actions'
+import { fetchUser } from '@/lib/actions/user.actions'
+import ThreadCard from '@/components/cards/ThreadCard'
 import {  SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
-import Image from 'next/image'
+import { redirect } from "next/navigation";
 
-async function Home() {
+async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
 
-  const result = await fetchPosts(1,30)
+  const result = await fetchPosts(
+    searchParams.page ? +searchParams.page : 1,
+    30
+  );
   const user = await currentUser()
   if(!user) return null
 
-  console.log(result)
+  const userInfo = await fetchUser(user.id);
+  if (!userInfo?.onboarded) redirect("/onboarding");
+
+  // console.log(result)
   return (
     <>
        {/* <Image src='/logo.png' width={80} height={50} alt='' /> */}
        <h1 className='head-text text-left'>Home</h1>
-
        <section className='mt-9 flex flex-col gap-10'>
           {result.posts.length === 0 ? (
               <p className='no-result'>No threads found</p>
