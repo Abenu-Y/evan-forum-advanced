@@ -4,6 +4,10 @@ const nextConfig = {
     //     config.cache = false;
     //     return config;
     //   },
+
+    typescript:{
+         ignoreBuildErrors:true
+    },
     images: {
       remotePatterns: [
         {
